@@ -43,7 +43,6 @@ class Candlesticks extends StatefulWidget {
 
   //yesssss sirrr
   final int answerLength;
-
   /// Custom loading widget
   final Widget? loadingWidget;
 
