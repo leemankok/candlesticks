@@ -54,21 +54,21 @@ class DesktopChart extends StatefulWidget {
   final MainWindowDataContainer mainWindowDataContainer;
 
   final void Function(String)? onRemoveIndicator;
-
-  DesktopChart({
-    required this.onScaleUpdate,
-    required this.onHorizontalDragUpdate,
-    required this.candleWidth,
-    required this.candles,
-    required this.index,
-    required this.chartAdjust,
-    required this.onPanDown,
-    required this.onPanEnd,
-    required this.onReachEnd,
-    required this.mainWindowDataContainer,
-    required this.onRemoveIndicator,
-    required this.style,
-  });
+  final int answerLength;
+  DesktopChart(
+      {required this.onScaleUpdate,
+      required this.onHorizontalDragUpdate,
+      required this.candleWidth,
+      required this.candles,
+      required this.index,
+      required this.chartAdjust,
+      required this.onPanDown,
+      required this.onPanEnd,
+      required this.onReachEnd,
+      required this.mainWindowDataContainer,
+      required this.onRemoveIndicator,
+      required this.style,
+      required this.answerLength});
 
   @override
   State<DesktopChart> createState() => _DesktopChartState();
@@ -239,17 +239,18 @@ class _DesktopChartState extends State<DesktopChart> {
                                                   high: high,
                                                 ),
                                                 CandleStickWidget(
-                                                  candles: widget.candles,
-                                                  candleWidth:
-                                                      widget.candleWidth,
-                                                  index: widget.index,
-                                                  high: high,
-                                                  low: low,
-                                                  bearColor:
-                                                      widget.style.primaryBear,
-                                                  bullColor:
-                                                      widget.style.primaryBull,
-                                                ),
+                                                    candles: widget.candles,
+                                                    candleWidth:
+                                                        widget.candleWidth,
+                                                    index: widget.index,
+                                                    high: high,
+                                                    low: low,
+                                                    bearColor: widget
+                                                        .style.primaryBear,
+                                                    bullColor: widget
+                                                        .style.primaryBull,
+                                                    answerLength:
+                                                        widget.answerLength),
                                               ],
                                             ),
                                           ),
