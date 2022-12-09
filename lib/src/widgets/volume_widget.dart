@@ -82,7 +82,7 @@ class VolumeRenderObject extends RenderBox {
       Candle candle, double range) {
     Color color = candle.isBull ? _bullColor : _bearColor;
 
-    double x = size.width + offset.dx - (index + 0.5) * _barWidth;
+    double x = size.width + offset.dx - (index + 0.5 + 10) * _barWidth;
 
     context.canvas.drawLine(
         Offset(x, offset.dy + (_high - candle.volume) / range),

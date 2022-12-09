@@ -35,6 +35,8 @@ class MobileChart extends StatefulWidget {
   /// index of the newest candle to be displayed
   /// changes when user scrolls along the chart
   final int index;
+  //lFGGGG
+  final int answerLength;
 
   /// holds main window indicators data and high and low prices.
   final MainWindowDataContainer mainWindowDataContainer;
@@ -51,20 +53,20 @@ class MobileChart extends StatefulWidget {
 
   final Function() onReachEnd;
 
-  MobileChart({
-    required this.style,
-    required this.onScaleUpdate,
-    required this.onHorizontalDragUpdate,
-    required this.candleWidth,
-    required this.candles,
-    required this.index,
-    required this.chartAdjust,
-    required this.onPanDown,
-    required this.onPanEnd,
-    required this.onReachEnd,
-    required this.mainWindowDataContainer,
-    required this.onRemoveIndicator,
-  });
+  MobileChart(
+      {required this.style,
+      required this.onScaleUpdate,
+      required this.onHorizontalDragUpdate,
+      required this.candleWidth,
+      required this.candles,
+      required this.index,
+      required this.chartAdjust,
+      required this.onPanDown,
+      required this.onPanEnd,
+      required this.onReachEnd,
+      required this.mainWindowDataContainer,
+      required this.onRemoveIndicator,
+      required this.answerLength});
 
   @override
   State<MobileChart> createState() => _MobileChartState();
@@ -216,6 +218,8 @@ class _MobileChartState extends State<MobileChart> {
                                             child: Stack(
                                               children: [
                                                 MainWindowIndicatorWidget(
+                                                  answerLength:
+                                                      widget.answerLength,
                                                   indicatorDatas: widget
                                                       .mainWindowDataContainer
                                                       .indicatorComponentData,
@@ -226,17 +230,18 @@ class _MobileChartState extends State<MobileChart> {
                                                   high: high,
                                                 ),
                                                 CandleStickWidget(
-                                                  candles: widget.candles,
-                                                  candleWidth:
-                                                      widget.candleWidth,
-                                                  index: widget.index,
-                                                  high: high,
-                                                  low: low,
-                                                  bearColor:
-                                                      widget.style.primaryBear,
-                                                  bullColor:
-                                                      widget.style.primaryBull,
-                                                ),
+                                                    candles: widget.candles,
+                                                    candleWidth:
+                                                        widget.candleWidth,
+                                                    index: widget.index,
+                                                    high: high,
+                                                    low: low,
+                                                    bearColor: widget
+                                                        .style.primaryBear,
+                                                    bullColor: widget
+                                                        .style.primaryBull,
+                                                    answerLength:
+                                                        widget.answerLength),
                                               ],
                                             ),
                                           ),
@@ -278,32 +283,6 @@ class _MobileChartState extends State<MobileChart> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: DATE_BAR_HEIGHT,
-                                        child: Center(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "-${HelperFunctions.addMetricPrefix(HelperFunctions.getRoof(volumeHigh))}",
-                                                style: TextStyle(
-                                                  color:
-                                                      widget.style.borderColor,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  width: PRICE_BAR_WIDTH,
                                 ),
                               ],
                             ),

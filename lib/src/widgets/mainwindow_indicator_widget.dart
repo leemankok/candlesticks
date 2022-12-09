@@ -8,8 +8,10 @@ class MainWindowIndicatorWidget extends LeafRenderObjectWidget {
   final double candleWidth;
   final double high;
   final double low;
+  final int answerLength;
 
   MainWindowIndicatorWidget({
+    required this.answerLength,
     required this.indicatorDatas,
     required this.index,
     required this.candleWidth,
@@ -20,12 +22,7 @@ class MainWindowIndicatorWidget extends LeafRenderObjectWidget {
   @override
   RenderObject createRenderObject(BuildContext context) {
     return MainWindowIndicatorRenderObject(
-      indicatorDatas,
-      index,
-      candleWidth,
-      low,
-      high,
-    );
+        indicatorDatas, index, candleWidth, low, high, answerLength);
   }
 
   @override
@@ -50,19 +47,21 @@ class MainWindowIndicatorRenderObject extends RenderBox {
   late double _candleWidth;
   late double _low;
   late double _high;
+  late int _answerLength;
 
   MainWindowIndicatorRenderObject(
-    List<IndicatorComponentData> indicatorDatas,
-    int index,
-    double candleWidth,
-    double low,
-    double high,
-  ) {
+      List<IndicatorComponentData> indicatorDatas,
+      int index,
+      double candleWidth,
+      double low,
+      double high,
+      int answerLength) {
     _indicatorDatas = indicatorDatas;
     _index = index;
     _candleWidth = candleWidth;
     _low = low;
     _high = high;
+    _answerLength = answerLength;
   }
 
   /// set size as large as possible
@@ -80,16 +79,18 @@ class MainWindowIndicatorRenderObject extends RenderBox {
       }
       Path? path;
       for (int i = 0; (i + 1) * _candleWidth < size.width; i++) {
-        if (i + _index >= element.values.length ||
-            i + _index < 0 ||
-            element.values[i + _index] == null) continue;
-        if (path == null) {
-          path = Path()
-            ..moveTo(size.width + offset.dx - (i + 0.5) * _candleWidth,
+        if (i + _index > _answerLength - 2) {
+          if (i + _index >= element.values.length ||
+              i + _index < 0 ||
+              element.values[i + _index] == null) continue;
+          if (path == null) {
+            path = Path()
+              ..moveTo(size.width + offset.dx - (i + 0.5) * _candleWidth,
+                  offset.dy + (_high - element.values[i + _index]!) / range);
+          } else {
+            path.lineTo(size.width + offset.dx - (i + 0.5) * _candleWidth,
                 offset.dy + (_high - element.values[i + _index]!) / range);
-        } else {
-          path.lineTo(size.width + offset.dx - (i + 0.5) * _candleWidth,
-              offset.dy + (_high - element.values[i + _index]!) / range);
+          }
         }
       }
       if (path != null)

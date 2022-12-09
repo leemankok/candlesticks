@@ -183,6 +183,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context, snapshot) {
               updateCandlesFromSnapshot(snapshot);
               return Candlesticks(
+                answerLength: 10,
                 key: Key(currentSymbol + currentInterval),
                 indicators: indicators,
                 candles: candles,

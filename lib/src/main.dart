@@ -41,6 +41,9 @@ class Candlesticks extends StatefulWidget {
   /// Will zoom buttons be displayed in toolbar
   final bool displayZoomActions;
 
+  //yesssss sirrr
+  final int answerLength;
+
   /// Custom loading widget
   final Widget? loadingWidget;
 
@@ -49,6 +52,7 @@ class Candlesticks extends StatefulWidget {
   const Candlesticks({
     Key? key,
     required this.candles,
+    required this.answerLength,
     this.onLoadMoreCandles,
     this.actions = const [],
     this.chartAdjust = ChartAdjust.visibleRange,
@@ -189,6 +193,7 @@ class _CandlesticksState extends State<Candlesticks> {
                     Platform.isWindows ||
                     Platform.isLinux) {
                   return DesktopChart(
+                    answerLength: widget.answerLength,
                     style: style,
                     onRemoveIndicator: widget.onRemoveIndicator,
                     mainWindowDataContainer: mainWindowDataContainer!,
@@ -232,6 +237,7 @@ class _CandlesticksState extends State<Candlesticks> {
                   );
                 } else {
                   return MobileChart(
+                    answerLength: widget.answerLength,
                     style: style,
                     onRemoveIndicator: widget.onRemoveIndicator,
                     mainWindowDataContainer: mainWindowDataContainer!,
